@@ -113,4 +113,43 @@
         </geometry>
     </visual>
 </link>
+
+<!-- Joint - chassis / castor wheel -->
+<joint name="joint_caster_wheel" type="fixed">
+    <origin rpy="0 0 0" xyz="0.8 0 -0.2"/>
+    <child link="link_caster_wheel"/>
+    <parent link="link_chassis"/>
+</joint>
+
+<!-- Link - caster wheel -->
+<link name = "link_caster_wheel">
+    <inertial>
+        <mass value = "1"/>
+        <origin 
+            xyz = "0 0 0"
+            rpy = "0 0 0" />
+        <inertia
+            ixx="1" ixy="0" ixz="0"
+            iyy="1" iyz="0" izz="1"/>
+    </inertial>
+
+    <collision>
+        <origin 
+            xyz="0 0 0"
+            rpy="0 0 0" />
+        <geometry>
+            <sphere radius="0.25"/>
+        </geometry>
+    </collision>
+
+    <visual>
+        <origin 
+            xyz="0 0 0"
+            rpy="0 0 0" />
+        <geometry>
+            <sphere radius="0.125"/>
+        </geometry>
+    </visual>
+</link>
+
 </robot>
