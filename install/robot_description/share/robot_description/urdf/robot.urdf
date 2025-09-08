@@ -49,21 +49,11 @@
             <cylinder length="0.12" radius="0.4"/>
         </geometry>
     </collision>
-
     <visual>
         <origin rpy="1.5707 0 0" xyz="0 0.18 0" />
         <geometry>
-            <mesh filename="package://robot_description/meshes/wheel.stl" />
+            <cylinder length="0.12" radius="0.4"/>
         </geometry>
-    </visual>
-
-
-    <!--Hubcap-->
-    <visual>
-        <origin rpy="0 0 0" xyz="0 0.18 0" />
-        <geometry>
-            <box size="0.05 0.05 0.5" /> 
-        </geometry> 
     </visual>
 
     <collision>
@@ -72,7 +62,6 @@
             <cylinder length="0.12" radius="0.08"/>
         </geometry>
     </collision>
-
     <visual>
         <origin rpy="1.5707 0 0" xyz="0 0.06 0" />
         <geometry>
@@ -105,11 +94,10 @@
             <cylinder length="0.12" radius="0.4"/>
         </geometry>
     </collision>
-
     <visual>
         <origin rpy="-1.5707 0 0" xyz="0 -0.18 0" />
         <geometry>
-            <mesh filename="package://robot_description/meshes/wheel.stl" />
+            <cylinder length="0.12" radius="0.4"/>
         </geometry>
     </visual>
 
@@ -119,25 +107,13 @@
             <cylinder length="0.12" radius="0.08"/>
         </geometry>
     </collision>
-
     <visual>
         <origin rpy="-1.5707 0 0" xyz="0 -0.06 0" />
         <geometry>
             <cylinder length="0.12" radius="0.08"/>
         </geometry>
     </visual>
-
-        <!--Hubcap-->
-    <visual>
-        <origin rpy="0 0 0" xyz="0 -0.18 0" />
-        <geometry>
-            <box size="0.05 0.05 0.5" /> 
-        </geometry> 
-    </visual>
-
-
 </link>
-
 
 <!-- Joint - chassis / castor wheel -->
 <joint name="joint_caster_wheel" type="fixed">
