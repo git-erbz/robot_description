@@ -13,7 +13,7 @@ def generate_launch_description():
     package_directory = get_package_share_directory(package_description)
 
     # Load URDF File #
-    urdf_file = 'robot.urdf'
+    urdf_file = 'robot.xacro'
     robot_desc_path = os.path.join(package_directory, "urdf", urdf_file)
     print("URDF Loaded !")
 
@@ -29,6 +29,8 @@ def generate_launch_description():
     )
 
     # Spawn the Robot #
+    declare_spawn_model_name = DeclareLaunchArgument("model_name", default_value="my_robot",
+                                                     description="Model Spawn Name")
     declare_spawn_x = DeclareLaunchArgument("x", default_value="0.0",
                                             description="Model Spawn X Axis Value")
     declare_spawn_y = DeclareLaunchArgument("y", default_value="0.0",
@@ -50,15 +52,36 @@ def generate_launch_description():
         output="screen",
     )
 
+    # ROS-Gazebo Bridge #
+    ign_bridge = Node(
+        package="ros_gz_bridge",
+        executable="parameter_bridge",
+        name="ign_bridge",
+        arguments=[
+            "/clock" + "@rosgraph_msgs/msg/Clock" + "[ignition.msgs.Clock",
+            "/cmd_vel" + "@geometry_msgs/msg/Twist" + "@ignition.msgs.Twist",
+            "/tf" + "@tf2_msgs/msg/TFMessage" + "[ignition.msgs.Pose_V",
+            "/odom" + "@nav_msgs/msg/Odometry" + "[ignition.msgs.Odometry",
+            "/laser/scan" + "@sensor_msgs/msg/LaserScan" + "[ignition.msgs.LaserScan",
+            "/imu" + "@sensor_msgs/msg/Imu" + "[ignition.msgs.IMU",
+        ],
+        remappings=[
+            # there are no remappings for this robot description
+        ],
+        output="screen",
+    )
+
     # Create and Return the Launch Description Object #
     return LaunchDescription(
         [
             # Sets use_sim_time for all nodes started below (doesn't work for nodes started from ignition gazebo) #
             SetParameter(name="use_sim_time", value=True),
             robot_state_publisher_node,
+            declare_spawn_model_name,
             declare_spawn_x,
             declare_spawn_y,
             declare_spawn_z,
             gz_spawn_entity,
+            ign_bridge,
         ]
     )
